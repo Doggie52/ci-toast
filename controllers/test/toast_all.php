@@ -2,9 +2,9 @@
 
 /**
  * Toast_all
- *
+ * 
  * Runs all tests in the /app/controllers/test/ folder.
- *
+ * 
  * NOTE: This class *REQUIRES* CURL!
  *
  * @package			CodeIgniter
@@ -12,7 +12,7 @@
  * @category		Unit Testing
  * @license			Creative Commons Attribution 3.0 (cc) 2009 Jens Roland
  * @author			Jens Roland (mail@jensroland.com)
- *
+ * 
  */
 
 
@@ -23,8 +23,8 @@ class Toast_all extends CI_Controller
 
 	// Files to skip (ie. non-test classes) inside the test dir
 	var $skip = array(
-		'toast.php',
-		'toast_all.php'
+		'Toast.php',
+		'Toast_all.php'
 	);
 
 	// CURL multithreaded mode (only set to true if you are sure your tests
@@ -35,7 +35,7 @@ class Toast_all extends CI_Controller
 	{
 		parent::__construct();
 
-		// autoset test_dir
+		// Autoset the test directory
 		$dir = explode(DIRECTORY_SEPARATOR, dirname(__FILE__));
 		$this->test_dir = '/' . array_pop($dir) . '/';
 	}
@@ -52,7 +52,8 @@ class Toast_all extends CI_Controller
 		$test_urls = array();
 		foreach ($test_files as $file)
 		{
-			$test_urls[] = site_url($this->test_dir . $file . '/show_results');
+			// Replaces localhost with 127.0.0.1 to make sure cURL runs faster
+			$test_urls[] = str_replace('localhost', '127.0.0.1', site_url($this->test_dir . $file . '/show_results'));
 		}
 
 		// Load header
@@ -77,7 +78,7 @@ class Toast_all extends CI_Controller
 
 	/**
 	 * Get a list of all the test files in the test dir
-	 *
+	 * 
 	 * @return array of filenames (without '.php' extensions)
 	 */
 	function _get_test_files()
@@ -87,8 +88,8 @@ class Toast_all extends CI_Controller
 		$handle=opendir(APPPATH . '/controllers' . $this->test_dir);
 		while (false!==($file = readdir($handle)))
 		{
-			// Skip hidden/system files and the files in the skip[] array
-			if ( ! in_array($file, $this->skip) && ! (substr($file, 0, 1) == '.'))
+			// Skip hidden/system files and the files in the skip[] array and only .php files
+			if ( ! in_array($file, $this->skip) && ! (substr($file, 0, 1) == '.') && pathinfo($file, PATHINFO_EXTENSION) == 'php')
 			{
 				// Remove the '.php' part of the file name
 				$files[] = substr($file, 0, strlen($file) - 4);
@@ -100,7 +101,7 @@ class Toast_all extends CI_Controller
 
 	/**
 	 * Fetch a number of URLs as a string
-	 *
+	 * 
 	 * @return string containing the (concatenated) HTML documents
 	 * @param array $urls array of fully qualified URLs
 	 */
@@ -109,8 +110,7 @@ class Toast_all extends CI_Controller
 		$html_str = '';
 		foreach ($urls as $url)
 		{
-			$curl_handle=curl_init();
-			curl_setopt($curl_handle, CURLOPT_URL, $url);
+			$curl_handle = curl_init($url);
 			curl_setopt($curl_handle, CURLOPT_RETURNTRANSFER, 1);
 			$html_str .= curl_exec($curl_handle);
 			curl_close($curl_handle);
@@ -120,7 +120,7 @@ class Toast_all extends CI_Controller
 
 	/**
 	 * Fetch a number of URLs as a string (multithreaded)
-	 *
+	 * 
 	 * @return string containing the (concatenated) HTML documents
 	 * @param array $urls array of fully qualified URLs
 	 */
@@ -158,4 +158,4 @@ class Toast_all extends CI_Controller
 }
 
 // End of file Toast_all.php */
-// Location: ./system/application/controllers/test/Toast_all.php */
+// Location: ./system/application/controllers/test/Toast_all.php */ 
