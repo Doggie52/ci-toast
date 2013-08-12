@@ -1,5 +1,5 @@
 <?php
-require_once(APPPATH . '/controllers/test/toast.php');
+require_once(APPPATH . '/controllers/test/Toast.php');
 
 class Example_tests extends Toast
 {
@@ -63,4 +63,4 @@ class Example_tests extends Toast
 }
 
 // End of file example_test.php */
-// Location: ./system/application/controllers/test/example_test.php */
+// Location: ./system/application/controllers/test/Example_test.php */
