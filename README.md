@@ -8,17 +8,16 @@ The suite has been updated to work with CodeIgniter 3.0 and has received an over
 
 ## Function reference
 ### Assertions
-* `$this->_assert_true()`
-* `$this->_assert_true()`
-* `$this->_assert_false()`
-* `$this->_assert_equals()`
-* `$this->_assert_not_equals()`
-* `$this->_assert_empty()`
-* `$this->_assert_not_empty()`
-* `_assert_true_strict()`
-* `_assert_false_strict()`
-* `_assert_equals_strict()`
-* `_assert_not_equals_strict()`
+* `$this->_assert_true( statement )`
+* `$this->_assert_false( statement )`
+* `$this->_assert_equals( statement, value )`
+* `$this->_assert_not_equals( statement, value )`
+* `$this->_assert_empty( statement )`
+* `$this->_assert_not_empty( statement )`
+* `$this->_assert_true_strict( statement )`
+* `$this->_assert_false_strict( statement )`
+* `$this->_assert_equals_strict( statement, value )`
+* `$this->_assert_not_equals_strict( statement, value )`
 
 ### Pre/Post
 * `_pre()` Identical to other frameworks' `up()`.
